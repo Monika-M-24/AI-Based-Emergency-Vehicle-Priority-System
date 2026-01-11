@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Vehicle Detection</title>
+
+    <!-- Add some basic styles -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1614850523011-8f49ffc73908?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D'); /* Add the background image here */
+            background-size: cover; /* Ensures the image covers the entire page */
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgb(40, 180, 189, 0.5); /* Semi-transparent white background */
+            border-radius: 8px;
+            color: white;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+
+        input[type="radio"] {
+            margin: 10px;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #1d1fa7 ;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #66ddf3;
+        }
+
+        #file_input {
+            margin-top: 10px;
+            display: none;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border: 5px solid white;
+            border-radius: 10px;
+        }
+
+        /* Added new style for the image under h1 */
+        .header-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 80%;  /* Set the image width to 80% of the container */
+            height: auto;   /* Adjust height automatically based on width */
+            border-radius: 10px;
+            border: 2px solid #fff;  /* Add a border to the image */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>AI BASED EMERGENCY VEHICLE PRIORITY SYSTEM</h1>
+
+    <!-- Add image below the heading -->
+    <img src="static\i1.jpg" alt="Emergency Vehicle" class="header-image" />
+
+    <div class="container">
+        <!-- Video Source Selection -->
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-label">
+                <label for="video_source">Choose video source:</label><br>
+                <input type="radio" id="webcam" name="video_source" value="webcam" required>
+                <label for="webcam">Webcam</label><br>
+                <input type="radio" id="video_file" name="video_source" value="video_file">
+                <label for="video_file">Video File</label><br>
+            </div>
+
+            <!-- Video File Upload -->
+            <div id="file_input">
+                <input type="file" name="video_file" accept="video/mp4,video/x-m4v,video/*" />
+            </div>
+
+            <button type="submit">Start</button>
+        </form>
+    </div>
+
+    <script>
+        // Toggle video file input visibility based on the selected source
+        document.querySelectorAll('input[name="video_source"]').forEach((input) => {
+            input.addEventListener('change', (event) => {
+                if (event.target.value === 'video_file') {
+                    document.getElementById('file_input').style.display = 'block';
+                } else {
+                    document.getElementById('file_input').style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <h2>Live Video Feed</h2>
+    <div class="container">
+        <img src="{{ url_for('video_feed') }}" width="640" height="480" />
+    </div>
+
+</body>
+</html>
